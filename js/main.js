@@ -156,11 +156,110 @@ function initNavigation() {
 }
 
 // ============================================
+// RESERVATION DRAWER (Fragancias) - Right-side slide-in
+// ============================================
+function initReservationDrawer() {
+  const overlay = document.getElementById('reservation-drawer-overlay');
+  const drawer = document.getElementById('reservation-drawer');
+  const closeBtn = document.getElementById('reservation-close');
+  const backdrop = document.getElementById('reservation-backdrop');
+  const form = document.getElementById('reservation-form');
+  const fragranceInput = document.getElementById('reservation-fragrance-id');
+  const optionRadios = document.querySelectorAll('input[name="reserva-fragancia"]');
+
+  if (!overlay || !drawer) return;
+
+  // Open drawer with pre-selected fragrance
+  function openReservationDrawer(fragranceId) {
+    // Pre-select the fragrance radio
+    optionRadios.forEach(radio => {
+      radio.checked = radio.value === fragranceId;
+    });
+    fragranceInput.value = fragranceId;
+
+    // Show overlay and animate drawer
+    overlay.classList.remove('hidden');
+    // Force reflow for animation
+    drawer.offsetHeight;
+    drawer.classList.remove('translate-x-full');
+    document.body.style.overflow = 'hidden';
+
+    // Focus first input
+    setTimeout(() => {
+      document.getElementById('reserva-nombre')?.focus();
+    }, 400);
+  }
+
+  // Close drawer
+  function closeReservationDrawer() {
+    drawer.classList.add('translate-x-full');
+    setTimeout(() => {
+      overlay.classList.add('hidden');
+      document.body.style.overflow = '';
+      form.reset();
+    }, 400);
+  }
+
+  // Event delegation for reserve buttons
+  document.addEventListener('click', (e) => {
+    const reserveBtn = e.target.closest('.reserve-btn');
+    if (reserveBtn) {
+      const fragranceId = reserveBtn.dataset.fragranceId;
+      if (fragranceId) {
+        openReservationDrawer(fragranceId);
+      }
+    }
+  });
+
+  // Close handlers
+  closeBtn?.addEventListener('click', closeReservationDrawer);
+  backdrop?.addEventListener('click', closeReservationDrawer);
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
+      closeReservationDrawer();
+    }
+  });
+
+  // Form submission
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+    const data = {
+      fragranceId: formData.get('fragrance_id'),
+      nombre: formData.get('nombre'),
+      email: formData.get('email')
+    };
+
+    // Find fragrance name for confirmation
+    const fragrance = POLPELMO_DATA.fragrances.find(f => f.id == data.fragranceId);
+    const fragranceName = fragrance ? fragrance.name : 'la fragancia seleccionada';
+
+    // Show success feedback
+    alert(`Reserva solicitada para ${fragranceName}.\n\nNombre: ${data.nombre}\nEmail: ${data.email}\n\nNuestro equipo se pondrá en contacto en 24h para confirmar disponibilidad.`);
+
+    closeReservationDrawer();
+  });
+
+  // Update hidden input when radio changes
+  optionRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      if (radio.checked) {
+        fragranceInput.value = radio.value;
+      }
+    });
+  });
+}
+
+// ============================================
 // INITIALIZATION
 // ============================================
 document.addEventListener('DOMContentLoaded', () => {
   initHeroVideo();
   initNavigation();
+  initReservationDrawer();
 });
 
 // Expose functions to global scope for inline onclick handlers
