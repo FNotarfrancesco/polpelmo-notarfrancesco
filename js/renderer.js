@@ -123,9 +123,9 @@ const Renderer = {
       <label class="flex items-center gap-3 p-4 rounded-lg border-2 border-outline-variant/50 cursor-pointer hover:border-primary/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5 min-h-[56px]">
         <input type="radio" name="reserva-fragancia" value="${opt.id}" class="sr-only peer" />
         
-        <!-- CÍRCULO CON MARGEN BLANCO (BULLSEYE) - Negro con borde blanco -->
+        <!-- CÍRCULO BULLSEYE: Blanco con círculo negro interno al seleccionar -->
         <div class="w-5 h-5 rounded-full border-2 border-outline-variant flex items-center justify-center bg-white peer-checked:border-primary transition-colors flex-shrink-0">
-          <span class="w-2 h-2 rounded-full bg-primary opacity-0 peer-checked:opacity-100 transition-opacity"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-black opacity-0 peer-checked:opacity-100 transition-opacity duration-200"></span>
         </div>
         <!-- FIN CÍRCULO -->
 
