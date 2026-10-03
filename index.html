@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html lang="en">
 
@@ -52,19 +52,21 @@
   class="bg-surface text-on-surface font-body-md text-body-md antialiased selection:bg-secondary-fixed selection:text-on-secondary-fixed">
   <header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-md shadow-[0_1px_8px_rgba(22,37,30,0.04)]">
     <div class="h-20 w-full px-margin-mobile md:px-margin-tablet lg:px-margin flex items-center justify-between">
-      <div class="flex items-center gap-space-md"><img alt="Polpelmo Logo" class="h-8 w-auto object-contain"
-          src="https://lh3.googleusercontent.com/aida/AEtjO1Whn3PWihSC1sZhPiheRkG5X9U7pNco1UMrSZnqJJiiIomSuzgfAi71gS8kSeq5lXv6jLZBvnFqsIXkC8ByK-mXCem4UIVFhzSEVIYhOZ_o1ErwX64FNm0y8bPCWEBoOUTSI6RojU6h3JeI2RvUkfLiH9HD_jsMJwI8jCEA0UblFzJwA8BdRpM7U5u_ObxdC2Lp9dbXz5sSQ1cw5d8bHQh65TjN5kisEUsOQQ3mxf5QKMWLQYrkzj-wcqKA" />
+      <div class="flex items-center gap-space-md">
+        <a href="#hero" class="scroll-to-top" aria-label="Volver al inicio">
+          <img alt="Polpelmo Logo" class="h-10 w-auto object-contain" src="assets/logo.png" />
+        </a>
       </div>
-      <nav class="hidden lg:flex items-center gap-space-xl"
-        data-active-classes="text-primary border-b border-primary font-medium"><a aria-current="page"
-          class="uppercase transition-colors pb-1 text-primary border-b border-primary font-medium"
-          data-path="manifiesto" href="#">Nuestra Esencia</a><a
-          class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-on-surface transition-colors pb-1 border-b border-transparent font-normal"
-          data-path="coleccion" href="#">Colección</a><a
-          class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-on-surface transition-colors pb-1 border-b border-transparent font-normal"
-          data-path="atelier" href="#">Atelier</a><a
-          class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-on-surface transition-colors pb-1 border-b border-transparent font-normal"
-          data-path="consultoria-olfativa" href="#">Consultoría Olfativa</a></nav>
+      <nav class="hidden lg:flex items-center gap-space-xl">
+        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-on-surface transition-colors pb-1 border-b border-transparent font-normal min-h-[44px]"
+          data-path="manifiesto" href="#">Nuestra Esencia</a>
+        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-on-surface transition-colors pb-1 border-b border-transparent font-normal min-h-[44px]"
+          data-path="coleccion" href="#">Colección</a>
+        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-on-surface transition-colors pb-1 border-b border-transparent font-normal min-h-[44px]"
+          data-path="atelier" href="#">Atelier</a>
+        <a class="font-label-md text-label-md uppercase text-on-surface-variant hover:text-on-surface transition-colors pb-1 border-b border-transparent font-normal min-h-[44px]"
+          data-path="consultoria-olfativa" href="#">Consultoría Olfativa</a>
+      </nav>
       <div class="flex items-center gap-space-lg">
         <div
           class="hidden sm:flex items-center gap-space-xs font-label-sm text-label-sm tracking-widest text-on-surface-variant">
@@ -106,7 +108,7 @@
             <p class="font-body-lg text-body-lg text-white/90 font-light leading-relaxed max-w-xl mb-10 tracking-wide">
               La elegancia de lo natural. Perfumería de autor con alma italiana, creada para ser tu firma personal.
             </p>
-            <a href="#coleccion" class="border-2 border-white/60 text-white hover:bg-white hover:text-primary px-10 py-4 font-label-md text-label-md uppercase tracking-[0.2em] transition-all duration-300">
+            <a href="#coleccion" class="border-2 border-white/60 text-white hover:bg-white hover:text-primary px-10 py-4 font-label-md text-label-md uppercase tracking-[0.2em] transition-all duration-300 scroll-nav" data-path="coleccion">
               Descubrir la Colección
             </a>
           </div>
@@ -566,7 +568,7 @@
               <!-- Paso 1: Selección -->
               <article class="relative lg:pl-20 flex gap-6 md:gap-8">
                 <div class="relative z-10 flex-shrink-0 w-20 h-20 lg:w-24 lg:h-24 rounded-full bg-primary-container border-2 border-primary flex items-center justify-center">
-                  <span class="font-headline-md text-headline-md text-primary font-light">01</span>
+                  <span class="font-headline-md text-headline-md text-on-primary font-light">01</span>
                 </div>
                 <div class="pt-2 md:pt-4 space-y-space-sm">
                   <h3 class="font-headline-sm text-headline-sm text-primary tracking-tight">Selección de Materias Primas</h3>
@@ -583,7 +585,7 @@
               <!-- Paso 2: Maceración -->
               <article class="relative lg:pl-20 flex gap-6 md:gap-8">
                 <div class="relative z-10 flex-shrink-0 w-20 h-20 lg:w-24 lg:h-24 rounded-full bg-primary-container border-2 border-primary flex items-center justify-center">
-                  <span class="font-headline-md text-headline-md text-primary font-light">02</span>
+                  <span class="font-headline-md text-headline-md text-on-primary font-light">02</span>
                 </div>
                 <div class="pt-2 md:pt-4 space-y-space-sm">
                   <h3 class="font-headline-sm text-headline-sm text-primary tracking-tight">Maceración en Barrica</h3>
@@ -600,7 +602,7 @@
               <!-- Paso 3: Filtración -->
               <article class="relative lg:pl-20 flex gap-6 md:gap-8">
                 <div class="relative z-10 flex-shrink-0 w-20 h-20 lg:w-24 lg:h-24 rounded-full bg-primary-container border-2 border-primary flex items-center justify-center">
-                  <span class="font-headline-md text-headline-md text-primary font-light">03</span>
+                  <span class="font-headline-md text-headline-md text-on-primary font-light">03</span>
                 </div>
                 <div class="pt-2 md:pt-4 space-y-space-sm">
                   <h3 class="font-headline-sm text-headline-sm text-primary tracking-tight">Filtración por Gravedad</h3>
@@ -617,7 +619,7 @@
               <!-- Paso 4: Envejecimiento -->
               <article class="relative lg:pl-20 flex gap-6 md:gap-8">
                 <div class="relative z-10 flex-shrink-0 w-20 h-20 lg:w-24 lg:h-24 rounded-full bg-primary-container border-2 border-primary flex items-center justify-center">
-                  <span class="font-headline-md text-headline-md text-primary font-light">04</span>
+                  <span class="font-headline-md text-headline-md text-on-primary font-light">04</span>
                 </div>
                 <div class="pt-2 md:pt-4 space-y-space-sm">
                   <h3 class="font-headline-sm text-headline-sm text-primary tracking-tight">Envejecimiento en Frasco</h3>
@@ -634,7 +636,7 @@
               <!-- Paso 5: Numeración -->
               <article class="relative lg:pl-20 flex gap-6 md:gap-8">
                 <div class="relative z-10 flex-shrink-0 w-20 h-20 lg:w-24 lg:h-24 rounded-full bg-primary-container border-2 border-primary flex items-center justify-center">
-                  <span class="font-headline-md text-headline-md text-primary font-light">05</span>
+                  <span class="font-headline-md text-headline-md text-on-primary font-light">05</span>
                 </div>
                 <div class="pt-2 md:pt-4 space-y-space-sm">
                   <h3 class="font-headline-sm text-headline-sm text-primary tracking-tight">Numeración y Sellado a Mano</h3>
@@ -833,114 +835,7 @@
         </div>
       </section>
     </div>
-    <script>
-      function toggleSpec(btn) {
-        const content = btn.nextElementSibling;
-        const icon = btn.querySelector('.material-symbols-outlined');
-        const isHidden = content.classList.contains('hidden');
-
-        // Close other siblings in the same accordion container
-        const parentContainer = btn.closest('.space-y-0');
-        if (parentContainer) {
-          parentContainer.querySelectorAll('.material-symbols-outlined').forEach(i => i.style.transform = 'rotate(0deg)');
-          parentContainer.querySelectorAll('.hidden, div:not(.hidden)').forEach(c => {
-            if (c.parentElement.parentElement === parentContainer && c !== content && !c.classList.contains('py-3') && !c.classList.contains('hidden')) {
-              c.classList.add('hidden');
-            }
-          });
-        }
-
-        if (isHidden) {
-          content.classList.remove('hidden');
-          if (icon) icon.style.transform = 'rotate(180deg)';
-        } else {
-          content.classList.add('hidden');
-          if (icon) icon.style.transform = 'rotate(0deg)';
-        }
-      }
-
-      function toggleBookingDrawer() {
-        const drawer = document.getElementById('booking-drawer');
-        const btn = document.getElementById('btn-invitacion');
-        if (!drawer) return;
-
-        if (drawer.classList.contains('hidden')) {
-          drawer.classList.remove('hidden');
-          drawer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          if (btn) btn.classList.add('opacity-40');
-        } else {
-          drawer.classList.add('hidden');
-          if (btn) btn.classList.remove('opacity-40');
-        }
-      }
-
-      // Hero video: ensure autoplay works (muted + playsinline required)
-      document.addEventListener('DOMContentLoaded', () => {
-        const video = document.getElementById('hero-video');
-        if (video) {
-          video.play().catch(() => {
-            // Autoplay blocked - user interaction will start it
-            video.addEventListener('click', () => video.play(), { once: true });
-          });
-        }
-      });
-
-      // Smooth scroll for nav links + active state management
-        const navLinks = document.querySelectorAll('nav a[data-path]');
-        const activeClassList = ['text-primary', 'border-b', 'border-primary', 'font-medium'];
-        const inactiveClassList = ['text-on-surface-variant', 'hover:text-on-surface', 'font-normal', 'border-b', 'border-transparent'];
-
-        function setActiveLink(clickedLink) {
-          navLinks.forEach(link => {
-            if (link === clickedLink) {
-              inactiveClassList.forEach(c => link.classList.remove(c));
-              activeClassList.forEach(c => link.classList.add(c));
-              link.setAttribute('aria-current', 'page');
-            } else {
-              activeClassList.forEach(c => link.classList.remove(c));
-              inactiveClassList.forEach(c => link.classList.add(c));
-              link.removeAttribute('aria-current');
-            }
-          });
-        }
-
-        navLinks.forEach(anchor => {
-          anchor.addEventListener('click', function (e) {
-            const path = this.getAttribute('data-path');
-            let targetId = '';
-            if (path === 'manifiesto') targetId = 'manifiesto';
-            if (path === 'coleccion') targetId = 'coleccion';
-            if (path === 'consultoria-olfativa') targetId = 'consultoria';
-            if (path === 'atelier') targetId = 'atelier';
-
-            if (targetId) {
-              const targetElement = document.getElementById(targetId);
-              if (targetElement) {
-                e.preventDefault();
-                setActiveLink(this);
-                targetElement.scrollIntoView({
-                  behavior: 'smooth'
-                });
-              }
-            }
-          });
-        });
-
-        // IntersectionObserver to update active link on scroll
-        const sections = ['manifiesto', 'coleccion', 'atelier', 'consultoria'].map(id => document.getElementById(id)).filter(Boolean);
-        if (sections.length) {
-          const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting && entry.intersectionRatio > 0.4) {
-                const id = entry.target.id;
-                const correspondingLink = document.querySelector(`nav a[data-path="${id === 'consultoria' ? 'consultoria-olfativa' : id}"]`);
-                if (correspondingLink) setActiveLink(correspondingLink);
-              }
-            });
-          }, { rootMargin: '-20% 0px -60% 0px', threshold: [0.4, 0.6] });
-          sections.forEach(section => observer.observe(section));
-        }
-    </script>
+    <script src="js/main.js"></script>
   </main>
   <footer class="w-full bg-surface-container-low text-on-surface-variant">
     <div class="w-full px-margin-mobile md:px-margin-tablet lg:px-margin py-space-xl">
