@@ -169,6 +169,24 @@ function initReservationDrawer() {
 
   if (!overlay || !drawer) return;
 
+  // Update visual state of radio pills
+  function updateRadioVisuals() {
+    document.querySelectorAll('.reservation-option').forEach(label => {
+      const radio = label.querySelector('input[type="radio"]');
+      const indicator = label.querySelector('[data-radio-indicator]');
+      const dot = label.querySelector('[data-radio-dot]');
+      if (radio && indicator && dot) {
+        if (radio.checked) {
+          indicator.classList.add('border-primary');
+          dot.classList.add('opacity-100');
+        } else {
+          indicator.classList.remove('border-primary');
+          dot.classList.remove('opacity-100');
+        }
+      }
+    });
+  }
+
   // Open drawer with pre-selected fragrance
   function openReservationDrawer(fragranceId) {
     // Pre-select the fragrance radio
@@ -176,6 +194,7 @@ function initReservationDrawer() {
       radio.checked = radio.value === fragranceId;
     });
     fragranceInput.value = fragranceId;
+    updateRadioVisuals();
 
     // Show overlay and animate drawer
     overlay.classList.remove('hidden');
@@ -208,6 +227,25 @@ function initReservationDrawer() {
       if (fragranceId) {
         openReservationDrawer(fragranceId);
       }
+    }
+
+    // Radio option click (label)
+    const optionLabel = e.target.closest('.reservation-option');
+    if (optionLabel) {
+      const radio = optionLabel.querySelector('input[type="radio"]');
+      if (radio) {
+        radio.checked = true;
+        document.getElementById('reservation-fragrance-id').value = radio.value;
+        updateRadioVisuals();
+      }
+    }
+  });
+
+  // Also handle radio change event (keyboard navigation)
+  document.addEventListener('change', (e) => {
+    if (e.target.matches('input[name="reserva-fragancia"]')) {
+      document.getElementById('reservation-fragrance-id').value = e.target.value;
+      updateRadioVisuals();
     }
   });
 

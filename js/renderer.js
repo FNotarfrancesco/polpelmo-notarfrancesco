@@ -120,12 +120,12 @@ const Renderer = {
   renderReservationDrawer() {
     const options = POLPELMO_DATA.reservationOptions;
     const optionPills = options.map(opt => `
-      <label class="flex items-center gap-3 p-4 rounded-lg border-2 border-outline-variant/50 cursor-pointer hover:border-primary/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5 min-h-[56px]">
-        <input type="radio" name="reserva-fragancia" value="${opt.id}" class="sr-only peer" />
+      <label class="flex items-center gap-3 p-4 rounded-lg border-2 border-outline-variant/50 cursor-pointer hover:border-primary/50 transition-colors min-h-[56px] reservation-option" data-value="${opt.id}">
+        <input type="radio" name="reserva-fragancia" value="${opt.id}" class="sr-only" />
         
         <!-- CÍRCULO BULLSEYE: Blanco con círculo negro interno al seleccionar -->
-        <div class="w-5 h-5 rounded-full border-2 border-outline-variant flex items-center justify-center bg-white peer-checked:border-primary transition-colors flex-shrink-0">
-          <span class="w-1.5 h-1.5 rounded-full bg-black opacity-0 peer-checked:opacity-100 transition-opacity duration-200"></span>
+        <div class="w-5 h-5 rounded-full border-2 border-outline-variant flex items-center justify-center bg-white transition-colors flex-shrink-0" data-radio-indicator>
+          <span class="w-1.5 h-1.5 rounded-full bg-black opacity-0 transition-opacity duration-200" data-radio-dot></span>
         </div>
         <!-- FIN CÍRCULO -->
 
