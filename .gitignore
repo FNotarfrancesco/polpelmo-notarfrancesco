@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+scratch/node_modules/
+
+# Build outputs
+dist/
+build/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+npm-debug.log*
+
+# Environment
+.env
+.env.local
+
+# Scratch/development scripts
+scratch/
+*.local.*
+
+# Large media (optional - uncomment if you want to use Git LFS instead)
+# assets/hero-frames/
+# assets/hero-video*.mp4
