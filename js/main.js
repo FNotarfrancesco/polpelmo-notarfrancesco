@@ -68,7 +68,7 @@ function initHeroVideo() {
 function initNavigation() {
   const navLinks = document.querySelectorAll('nav a[data-path]');
   const activeClassList = ['text-primary', 'border-b-2', 'border-primary', 'font-medium'];
-  const inactiveClassList = ['text-on-surface-variant', 'hover:text-on-surface', 'font-normal', 'border-b', 'border-transparent'];
+  const inactiveClassList = ['text-on-surface-variant', 'hover:text-on-surface', 'font-normal', 'border-b-2', 'border-transparent'];
 
   function setActiveLink(clickedLink) {
     navLinks.forEach(link => {
