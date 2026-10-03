@@ -224,7 +224,8 @@ function initReservationDrawer() {
     const reserveBtn = e.target.closest('.reserve-btn');
     if (reserveBtn) {
       const fragranceId = reserveBtn.dataset.fragranceId;
-      if (fragranceId) {
+      // Allow empty string (header button opens drawer without pre-selection)
+      if (fragranceId !== undefined && fragranceId !== null) {
         openReservationDrawer(fragranceId);
       }
     }
