@@ -121,9 +121,9 @@ const Renderer = {
     const options = POLPELMO_DATA.reservationOptions;
     const optionPills = options.map(opt => `
       <label class="flex items-center gap-3 p-4 rounded-lg border-2 border-outline-variant/50 cursor-pointer hover:border-primary/50 transition-colors min-h-[56px] reservation-option" data-value="${opt.id}">
-        <input type="radio" name="reserva-fragancia" value="${opt.id}" class="sr-only" />
+        <input type="checkbox" name="reserva-fragancia" value="${opt.id}" class="sr-only" />
         
-        <!-- CÍRCULO BULLSEYE: Blanco con círculo negro interno al seleccionar -->
+        <!-- CÍRCULO BULLSEYE: Blanco con círculo negro interno al seleccionar (checkbox style) -->
         <div class="w-5 h-5 rounded-full border-2 border-outline-variant flex items-center justify-center bg-white transition-colors flex-shrink-0" data-radio-indicator>
           <span class="w-1.5 h-1.5 rounded-full bg-black opacity-0 transition-opacity duration-200" data-radio-dot></span>
         </div>
@@ -143,7 +143,7 @@ const Renderer = {
         <div class="absolute right-0 top-0 h-full w-full max-w-md md:max-w-lg bg-surface shadow-[-24px_0_48px_rgba(0,0,0,0.12)] flex flex-col z-10 transform transition-transform duration-400 ease-out translate-x-full" id="reservation-drawer">
           <!-- Header -->
           <div class="flex items-center justify-between p-6 sm:p-8 border-b border-outline-variant/50 flex-shrink-0">
-            <h2 id="reservation-title" class="font-headline-sm text-h3 text-primary font-light tracking-tight">Reservar Frasco</h2>
+            <h2 id="reservation-title" class="font-headline-sm text-h3 text-primary font-light tracking-tight">Reservar Frascos</h2>
             <button id="reservation-close" class="p-3 rounded-full hover:bg-surface-container transition-colors min-h-[44px] min-w-[44px]" aria-label="Cerrar">
               <span class="material-symbols-outlined text-on-surface-variant text-[24px]">close</span>
             </button>
@@ -151,11 +151,11 @@ const Renderer = {
 
           <!-- Form -->
           <form id="reservation-form" class="flex-1 overflow-y-auto p-6 sm:p-8 space-y-6" novalidate>
-            <input type="hidden" name="fragrance_id" id="reservation-fragrance-id" value="" />
+            <input type="hidden" name="fragrance_ids" id="reservation-fragrance-ids" value="" />
 
             <!-- Fragrance Selector -->
             <fieldset>
-              <legend class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant mb-4 block">Fragancia</legend>
+              <legend class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant mb-4 block">Fragancias (seleccione varias)</legend>
               <div class="space-y-3" id="reservation-fragrance-options">
                 ${optionPills}
               </div>

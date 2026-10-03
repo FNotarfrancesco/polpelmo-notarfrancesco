@@ -1,6 +1,6 @@
 /**
  * Polpelmo - Main JavaScript
- * Funcionalidades: Accordions, Booking Drawer, Hero Video, Navigation, Logo scroll to top
+ * Funcionalidades: Accordions, Booking Drawer, Hero Video, Navigation, Logo scroll to top, Reservation Drawer
  */
 
 // ============================================
@@ -15,8 +15,8 @@ function toggleSpec(btn) {
   const parentContainer = btn.closest('.space-y-0');
   if (parentContainer) {
     parentContainer.querySelectorAll('.material-symbols-outlined').forEach(i => i.style.transform = 'rotate(0deg)');
-    parentContainer.querySelectorAll('.hidden, div:not(.hidden)').forEach(c => {
-      if (c.parentElement?.parentElement === parentContainer && c !== content && !c.classList.contains('py-3') && !c.classList.contains('hidden')) {
+    parentContainer.querySelectorAll('[class*="hidden"], div:not(.hidden)').forEach(c => {
+      if (c.parentElement?.parentElement === parentContainer && c !== content && !c.classList.contains('py-3') && !c.classList.contains('hidden') && !c.classList.contains('py-4')) {
         c.classList.add('hidden');
       }
     });
@@ -25,9 +25,11 @@ function toggleSpec(btn) {
   if (isHidden) {
     content.classList.remove('hidden');
     if (icon) icon.style.transform = 'rotate(180deg)';
+    btn.setAttribute('aria-expanded', 'true');
   } else {
     content.classList.add('hidden');
     if (icon) icon.style.transform = 'rotate(0deg)';
+    btn.setAttribute('aria-expanded', 'false');
   }
 }
 
@@ -63,7 +65,91 @@ function initHeroVideo() {
 }
 
 // ============================================
-// NAVIGATION: Smooth scroll + Active state
+// MOBILE NAVIGATION (Fullscreen Overlay)
+// ============================================
+function initMobileNav() {
+  const overlay = document.getElementById('mobile-nav-overlay');
+  const panel = document.getElementById('mobile-nav-panel');
+  const backdrop = document.getElementById('mobile-nav-backdrop');
+  const openBtn = document.getElementById('mobile-menu-btn');
+  const closeBtn = document.getElementById('mobile-nav-close');
+  const linksContainer = document.getElementById('mobile-nav-links');
+
+  if (!overlay || !panel || !openBtn || !closeBtn || !linksContainer) return;
+
+  // Populate mobile nav links from desktop nav
+  const desktopLinks = document.querySelectorAll('nav a[data-path]');
+  const navData = Array.from(desktopLinks).map(link => ({
+    path: link.getAttribute('data-path'),
+    label: link.textContent.trim(),
+    href: link.getAttribute('href')
+  }));
+
+  linksContainer.innerHTML = navData.map(item => `
+    <a href="${item.href}" class="font-headline-sm text-h3 text-on-surface font-light tracking-tight w-full text-center py-4 min-h-[56px] transition-colors" data-path="${item.path}">
+      ${item.label}
+    </a>
+  `).join('');
+
+  function openMobileNav() {
+    overlay.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    // Force reflow
+    panel.offsetHeight;
+    panel.classList.remove('translate-x-full');
+    openBtn.setAttribute('aria-expanded', 'true');
+    closeBtn.focus();
+  }
+
+  function closeMobileNav() {
+    panel.classList.add('translate-x-full');
+    openBtn.setAttribute('aria-expanded', 'false');
+    setTimeout(() => {
+      overlay.classList.add('hidden');
+      document.body.style.overflow = '';
+    }, 400);
+  }
+
+  openBtn.addEventListener('click', openMobileNav);
+  closeBtn.addEventListener('click', closeMobileNav);
+  backdrop.addEventListener('click', closeMobileNav);
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
+      closeMobileNav();
+    }
+  });
+
+  // Handle mobile nav link clicks
+  linksContainer.addEventListener('click', (e) => {
+    const link = e.target.closest('a[data-path]');
+    if (link) {
+      e.preventDefault();
+      const path = link.getAttribute('data-path');
+      let targetId = '';
+
+      if (path === 'manifiesto') targetId = 'manifiesto';
+      if (path === 'coleccion') targetId = 'coleccion';
+      if (path === 'consultoria-olfativa') targetId = 'consultoria';
+      if (path === 'atelier') targetId = 'atelier';
+
+      if (targetId) {
+        closeMobileNav();
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+          // Small delay to allow menu to close
+          setTimeout(() => {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+          }, 300);
+        }
+      }
+    }
+  });
+}
+
+// ============================================
+// NAVIGATION: Smooth scroll + Active state (Desktop)
 // ============================================
 function initNavigation() {
   const navLinks = document.querySelectorAll('nav a[data-path]');
@@ -156,7 +242,7 @@ function initNavigation() {
 }
 
 // ============================================
-// RESERVATION DRAWER (Fragancias) - Right-side slide-in
+// RESERVATION DRAWER (Fragancias) - Right-side slide-in (Checkbox style)
 // ============================================
 function initReservationDrawer() {
   const overlay = document.getElementById('reservation-drawer-overlay');
@@ -164,19 +250,19 @@ function initReservationDrawer() {
   const closeBtn = document.getElementById('reservation-close');
   const backdrop = document.getElementById('reservation-backdrop');
   const form = document.getElementById('reservation-form');
-  const fragranceInput = document.getElementById('reservation-fragrance-id');
-  const optionRadios = document.querySelectorAll('input[name="reserva-fragancia"]');
+  const fragranceInput = document.getElementById('reservation-fragrance-ids');
+  const optionCheckboxes = document.querySelectorAll('input[name="reserva-fragancia"]');
 
   if (!overlay || !drawer) return;
 
-  // Update visual state of radio pills
-  function updateRadioVisuals() {
+  // Update visual state of checkbox pills
+  function updateCheckboxVisuals() {
     document.querySelectorAll('.reservation-option').forEach(label => {
-      const radio = label.querySelector('input[type="radio"]');
+      const checkbox = label.querySelector('input[type="checkbox"]');
       const indicator = label.querySelector('[data-radio-indicator]');
       const dot = label.querySelector('[data-radio-dot]');
-      if (radio && indicator && dot) {
-        if (radio.checked) {
+      if (checkbox && indicator && dot) {
+        if (checkbox.checked) {
           indicator.classList.add('border-primary');
           dot.classList.add('opacity-100');
         } else {
@@ -185,16 +271,23 @@ function initReservationDrawer() {
         }
       }
     });
+    
+    // Update hidden input with comma-separated selected IDs
+    const selectedIds = Array.from(optionCheckboxes)
+      .filter(cb => cb.checked)
+      .map(cb => cb.value);
+    if (fragranceInput) fragranceInput.value = selectedIds.join(',');
   }
 
-  // Open drawer with pre-selected fragrance
+  // Open drawer with pre-selected fragrance (only for header button with specific ID)
   function openReservationDrawer(fragranceId) {
-    // Pre-select the fragrance radio
-    optionRadios.forEach(radio => {
-      radio.checked = radio.value === fragranceId;
-    });
-    fragranceInput.value = fragranceId;
-    updateRadioVisuals();
+    // If specific fragranceId provided (from fragrance cards), pre-select it
+    if (fragranceId) {
+      optionCheckboxes.forEach(cb => {
+        cb.checked = cb.value === fragranceId;
+      });
+    }
+    updateCheckboxVisuals();
 
     // Show overlay and animate drawer
     overlay.classList.remove('hidden');
@@ -216,6 +309,7 @@ function initReservationDrawer() {
       overlay.classList.add('hidden');
       document.body.style.overflow = '';
       form.reset();
+      updateCheckboxVisuals(); // Reset visuals after form reset
     }, 400);
   }
 
@@ -230,23 +324,22 @@ function initReservationDrawer() {
       }
     }
 
-    // Radio option click (label)
+    // Checkbox option click (label)
     const optionLabel = e.target.closest('.reservation-option');
     if (optionLabel) {
-      const radio = optionLabel.querySelector('input[type="radio"]');
-      if (radio) {
-        radio.checked = true;
-        document.getElementById('reservation-fragrance-id').value = radio.value;
-        updateRadioVisuals();
+      const checkbox = optionLabel.querySelector('input[type="checkbox"]');
+      if (checkbox) {
+        // Toggle checkbox
+        checkbox.checked = !checkbox.checked;
+        updateCheckboxVisuals();
       }
     }
   });
 
-  // Also handle radio change event (keyboard navigation)
+  // Also handle checkbox change event (keyboard navigation)
   document.addEventListener('change', (e) => {
     if (e.target.matches('input[name="reserva-fragancia"]')) {
-      document.getElementById('reservation-fragrance-id').value = e.target.value;
-      updateRadioVisuals();
+      updateCheckboxVisuals();
     }
   });
 
@@ -266,29 +359,29 @@ function initReservationDrawer() {
     e.preventDefault();
 
     const formData = new FormData(form);
+    const selectedIds = Array.from(optionCheckboxes)
+      .filter(cb => cb.checked)
+      .map(cb => cb.value);
+    
     const data = {
-      fragranceId: formData.get('fragrance_id'),
+      fragranceIds: selectedIds.join(','),
       nombre: formData.get('nombre'),
       email: formData.get('email')
     };
 
-    // Find fragrance name for confirmation
-    const fragrance = POLPELMO_DATA.fragrances.find(f => f.id == data.fragranceId);
-    const fragranceName = fragrance ? fragrance.name : 'la fragancia seleccionada';
+    // Find fragrance names for confirmation
+    const selectedFragrances = POLPELMO_DATA.fragrances
+      .filter(f => selectedIds.includes(String(f.id)))
+      .map(f => f.name);
+    
+    const fragranceNames = selectedFragrances.length > 0 
+      ? selectedFragrances.join(', ') 
+      : 'ninguna fragancia';
 
     // Show success feedback
-    alert(`Reserva solicitada para ${fragranceName}.\n\nNombre: ${data.nombre}\nEmail: ${data.email}\n\nNuestro equipo se pondrá en contacto en 24h para confirmar disponibilidad.`);
+    alert(`Reserva solicitada para: ${fragranceNames}.\n\nNombre: ${data.nombre}\nEmail: ${data.email}\n\nNuestro equipo se pondrá en contacto en 24h para confirmar disponibilidad.`);
 
     closeReservationDrawer();
-  });
-
-  // Update hidden input when radio changes
-  optionRadios.forEach(radio => {
-    radio.addEventListener('change', () => {
-      if (radio.checked) {
-        fragranceInput.value = radio.value;
-      }
-    });
   });
 }
 
@@ -298,6 +391,7 @@ function initReservationDrawer() {
 document.addEventListener('DOMContentLoaded', () => {
   initHeroVideo();
   initNavigation();
+  initMobileNav();
   initReservationDrawer();
 });
 
