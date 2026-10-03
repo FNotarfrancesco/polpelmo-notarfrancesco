@@ -122,9 +122,13 @@ const Renderer = {
     const optionPills = options.map(opt => `
       <label class="flex items-center gap-3 p-4 rounded-lg border-2 border-outline-variant/50 cursor-pointer hover:border-primary/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5 min-h-[56px]">
         <input type="radio" name="reserva-fragancia" value="${opt.id}" class="sr-only peer" />
-        <div class="w-5 h-5 rounded-full border-2 border-outline-variant flex items-center justify-center peer-checked:border-primary peer-checked:bg-primary transition-colors flex-shrink-0">
+        
+        <!-- CÍRCULO CON MARGEN BLANCO (BULLSEYE) - Negro con borde blanco -->
+        <div class="w-5 h-5 rounded-full border-2 border-outline-variant flex items-center justify-center bg-white peer-checked:border-primary transition-colors flex-shrink-0">
           <span class="w-2 h-2 rounded-full bg-primary opacity-0 peer-checked:opacity-100 transition-opacity"></span>
         </div>
+        <!-- FIN CÍRCULO -->
+
         <div class="flex-1 text-left min-w-0">
           <p class="font-label-md text-label-md text-on-surface truncate">${this.escapeHtml(opt.name)}</p>
           <p class="font-label-sm text-label-sm text-on-surface-variant">${this.escapeHtml(opt.volume)}</p>
